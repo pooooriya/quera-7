@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useEffect, useState } from "react";
+import React, { useCallback, useContext, useEffect } from "react";
 import { ChatItem } from "./ChatItem";
 import { AXIOS } from "../../../../config/axios.config";
 import { ApiRoutes } from "../../../../constants/api.route";
@@ -10,11 +10,7 @@ import { ContactActionTypes } from "../../../../@types/context/context.types";
 interface ChatListProps extends React.PropsWithChildren {}
 export const ChatList: React.FunctionComponent<ChatListProps> = (props) => {
   const dispatch = useContext(AppContext).dispatch;
-  const state = useContext(AppContext).state;
-
-  useEffect(() => {
-    setTimeout(() => console.log(state), 1000);
-  }, []);
+  const { state, search } = useContext(AppContext);
 
   const fetchContacts = useCallback(async () => {
     const response = await AXIOS.get<any, AxiosResponse<Contacts[]>>(
@@ -26,20 +22,30 @@ export const ChatList: React.FunctionComponent<ChatListProps> = (props) => {
         payload: response.data,
       });
     }
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     fetchContacts();
-    return () => {
-      console.log("من از اینجا رفتم دیگم نیستم");
-    };
   }, [fetchContacts]);
+
   return (
     <>
-      {state.length === 0 ? (
-        <div>فعلا پیامی وجود ندارد ...</div>
+      {search.length === 0 ? (
+        state.length === 0 ? (
+          <div>فعلا پیامی وجود ندارد ...</div>
+        ) : (
+          state.map((item) => (
+            <ChatItem
+              avatar={item.avatar}
+              lastmessage={item.lastMessage}
+              time={item.lastMessageSent}
+              name={item.name}
+              key={item.id}
+            />
+          ))
+        )
       ) : (
-        state.map((item) => (
+        search.map((item) => (
           <ChatItem
             avatar={item.avatar}
             lastmessage={item.lastMessage}

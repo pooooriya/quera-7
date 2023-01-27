@@ -21,5 +21,7 @@ export type ContextAction<T, K> = {
 
 export type CreateContext = {
   state: ContactState[];
+  search: ContactState[];
   dispatch: React.Dispatch<ContextAction<any, any>>;
+  setSearch: React.Dispatch<React.SetStateAction<ContactState[]>>;
 };
