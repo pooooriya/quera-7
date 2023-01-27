@@ -10,7 +10,7 @@ interface InputProps
 const { BaseTheme, PrimaryTheme } = {
   BaseTheme:
     "bg-gray-200 p-1 w-full rounded-md placeholder:p-1 placeholder:text-sm outline-none border-none",
-  PrimaryTheme: "bg-red",
+  PrimaryTheme: "",
 };
 
 export const Input: React.FunctionComponent<InputProps> = (props) => {

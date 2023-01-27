@@ -5,6 +5,7 @@ import { ChatList } from "../Sidebar/ChatList";
 import { ChatHeader } from "../Main/ChatHeader";
 import { ChatMessage } from "../Main/ChatMessage";
 import { ChatSender } from "../Main/ChatSender";
+import { ChatPreview } from "../Main/ChatPreview";
 
 interface MessangerLayoutProps extends React.PropsWithChildren {}
 export const MessangerLayout: React.FunctionComponent<MessangerLayoutProps> = ({
@@ -15,9 +16,10 @@ export const MessangerLayout: React.FunctionComponent<MessangerLayoutProps> = ({
       {/* Main Bar */}
       <div className="flex-1">
         <div className="flex flex-col h-full">
-          <ChatHeader />
-          <ChatMessage />
-          <ChatSender />
+          {/* <ChatHeader /> */}
+          <ChatPreview />
+          {/* <ChatMessage /> */}
+          {/* <ChatSender /> */}
         </div>
       </div>
       {/* Side Bar */}
