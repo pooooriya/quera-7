@@ -15,6 +15,9 @@ export const MessageReducer = (
     case MessageActionTypes.Send_New_Message:
       state.MessageList.push(action.payload);
       return state;
+    case MessageActionTypes.Change_Messages:
+      state.MessageList = action.payload;
+      return state;
     default:
       return state;
   }

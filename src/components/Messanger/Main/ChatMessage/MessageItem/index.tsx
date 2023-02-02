@@ -1,13 +1,28 @@
-import React from "react";
+import React, { useContext } from "react";
 import cs from "classnames";
+import { AiFillDelete } from "react-icons/ai";
+import { AiFillEdit } from "react-icons/ai";
+import { AppContext } from "../../../../../context/store";
+
 interface MessageItemProps extends React.PropsWithChildren {
   type?: "sender" | "reciever";
   text: string;
+  id: number;
 }
 export const MessageItem: React.FunctionComponent<MessageItemProps> = ({
   type = "sender",
   text,
+  id,
 }) => {
+  const { state, dispatch } = useContext(AppContext);
+
+  const removeHandler = (id: number) => {
+    let newMessages = state.messages.MessageList.filter(
+      (message) => message.id !== id
+    );
+    dispatch({ type: "Change_Messages", payload: newMessages });
+  };
+
   switch (type) {
     case "sender":
       return (
@@ -18,7 +33,13 @@ export const MessageItem: React.FunctionComponent<MessageItemProps> = ({
             alt=""
           />
           <div className={"p-2 w-[250px] rounded-lg shadow-md mr-2 bg-white"}>
-            <h4 className="font-bold text-sm">پوریا باباعلی</h4>
+            <div className="flex justify-between cursor-pointer">
+              <h4 className="font-bold text-sm">پوریا باباعلی</h4>
+              <div className="flex gap-2">
+                <AiFillDelete onClick={() => removeHandler(id)} />
+                <AiFillEdit />
+              </div>
+            </div>
             <p className="text-xs">{text}</p>
           </div>
         </li>
@@ -29,7 +50,13 @@ export const MessageItem: React.FunctionComponent<MessageItemProps> = ({
           <div
             className={"p-2 w-[250px] rounded-lg shadow-md ml-2 bg-blue-400"}
           >
-            <h4 className="font-bold text-sm">پوریا باباعلی</h4>
+            <div className="flex justify-between cursor-pointer">
+              <h4 className="font-bold text-sm">پوریا باباعلی</h4>
+              <div className="flex gap-2">
+                <AiFillDelete onClick={() => removeHandler(id)} />
+                <AiFillEdit />
+              </div>
+            </div>
             <p className="text-xs">{text}</p>
           </div>
           <img

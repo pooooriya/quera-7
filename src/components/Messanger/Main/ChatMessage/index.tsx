@@ -40,6 +40,7 @@ export const ChatMessage: React.FunctionComponent<ChatMessageProps> = (
           key={item.id}
           type={item.isSentByOwner ? "sender" : "reciever"}
           text={item.value}
+          id={item.id}
         />
       ))}
       {/* Dummy Li */}

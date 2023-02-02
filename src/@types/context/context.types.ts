@@ -35,6 +35,7 @@ export type MessageItems = {
 export enum MessageActionTypes {
   Get_Current_Messages = "Get_Current_Messages",
   Send_New_Message = "Send_New_Message",
+  Change_Messages = "Change_Messages",
 }
 
 export type ContextAppState = {
