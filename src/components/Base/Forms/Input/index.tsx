@@ -13,15 +13,20 @@ const { BaseTheme, PrimaryTheme } = {
   PrimaryTheme: "",
 };
 
-export const Input: React.FunctionComponent<InputProps> = (props, ref) => {
+export const Input: React.FunctionComponent<InputProps> = React.forwardRef<
+  HTMLInputElement,
+  InputProps
+>((props, ref) => {
   switch (props.variant) {
     case "primary":
-      return <input className={cs(BaseTheme, PrimaryTheme)} {...props} />;
+      return (
+        <input ref={ref} className={cs(BaseTheme, PrimaryTheme)} {...props} />
+      );
     case "secondary":
-      return <input className={cs(BaseTheme)} {...props} />;
+      return <input ref={ref} className={cs(BaseTheme)} {...props} />;
     case "info":
-      return <input className={cs(BaseTheme)} {...props} />;
+      return <input ref={ref} className={cs(BaseTheme)} {...props} />;
     default:
-      return <input className={cs(BaseTheme)} {...props} />;
+      return <input ref={ref} className={cs(BaseTheme)} {...props} />;
   }
-};
+});
