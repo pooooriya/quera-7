@@ -41,6 +41,7 @@ export const ChatList: React.FunctionComponent<ChatListProps> = (props) => {
               time={item.lastMessageSent}
               name={item.name}
               key={item.id}
+              roomId={item.roomId}
             />
           ))
         )
@@ -52,6 +53,7 @@ export const ChatList: React.FunctionComponent<ChatListProps> = (props) => {
             time={item.lastMessageSent}
             name={item.name}
             key={item.id}
+            roomId={item.roomId}
           />
         ))
       )}

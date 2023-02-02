@@ -13,7 +13,7 @@ const { BaseTheme, PrimaryTheme } = {
   PrimaryTheme: "",
 };
 
-export const Input: React.FunctionComponent<InputProps> = (props) => {
+export const Input: React.FunctionComponent<InputProps> = (props, ref) => {
   switch (props.variant) {
     case "primary":
       return <input className={cs(BaseTheme, PrimaryTheme)} {...props} />;

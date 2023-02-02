@@ -4,6 +4,7 @@ export type ContactState = {
   id: number;
   lastMessageSent: string;
   lastMessage: string;
+  roomId: string;
 };
 
 export type AppContextIntialState = {
@@ -19,9 +20,22 @@ export type ContextAction<T, K> = {
   payload: K;
 };
 
-export type CreateContext = {
-  state: ContactState[];
-  search: ContactState[];
-  dispatch: React.Dispatch<ContextAction<any, any>>;
-  setSearch: React.Dispatch<React.SetStateAction<ContactState[]>>;
+export type MessageState = {
+  roomId: string;
+  MessageList: MessageItems | [];
+};
+
+export type MessageItems = {
+  isSentByOwner: boolean;
+  value: string;
+  id: number;
+};
+
+export enum MessageActionTypes {
+  Get_Current_Messages = "Get_Current_Messages",
+}
+
+export type ContextAppState = {
+  contacts: ContactState[];
+  messages: MessageState;
 };
