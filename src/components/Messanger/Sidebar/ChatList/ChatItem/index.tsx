@@ -3,6 +3,7 @@ import { AXIOS } from "../../../../../config/axios.config";
 import { ApiRoutes } from "../../../../../constants/api.route";
 import { AppContext } from "../../../../../context/store";
 import { MessageActionTypes } from "../../../../../@types/context/context.types";
+import classNames from "classnames";
 
 interface ChatItemProps extends React.PropsWithChildren {
   name: string;
@@ -18,7 +19,10 @@ export const ChatItem: React.FunctionComponent<ChatItemProps> = ({
   avatar,
   roomId,
 }) => {
-  const dispatch = useContext(AppContext).dispatch;
+  const {
+    state: { messages },
+    dispatch,
+  } = useContext(AppContext);
   const handleClickItem = (roomId: string) => {
     // 1.request to the server to get last chat messages by roomId
     AXIOS.get(`${ApiRoutes.GetMessages}${roomId}`)
@@ -38,7 +42,10 @@ export const ChatItem: React.FunctionComponent<ChatItemProps> = ({
 
   return (
     <div
-      className="flex cursor-pointer ease-in duration-200 hover:bg-blue-300 p-2"
+      className={classNames(
+        "flex cursor-pointer ease-in duration-200 hover:bg-blue-300 p-2",
+        messages.roomId === roomId && "bg-blue-300"
+      )}
       onClick={() => handleClickItem(roomId)}
     >
       <div className="w-full">

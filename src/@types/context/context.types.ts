@@ -23,7 +23,7 @@ export type ContextAction<T, K> = {
 
 export type MessageState = {
   roomId: string;
-  MessageList: MessageItems | [];
+  MessageList: MessageItems[];
 };
 
 export type MessageItems = {
@@ -34,6 +34,7 @@ export type MessageItems = {
 
 export enum MessageActionTypes {
   Get_Current_Messages = "Get_Current_Messages",
+  Send_New_Message = "Send_New_Message",
 }
 
 export type ContextAppState = {

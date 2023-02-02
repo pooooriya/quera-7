@@ -12,6 +12,9 @@ export const MessageReducer = (
       state.roomId = action.payload.roomId;
       state.MessageList = action.payload.MessageList;
       return state;
+    case MessageActionTypes.Send_New_Message:
+      state.MessageList.push(action.payload);
+      return state;
     default:
       return state;
   }

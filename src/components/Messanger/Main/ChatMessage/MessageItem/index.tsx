@@ -2,9 +2,11 @@ import React from "react";
 import cs from "classnames";
 interface MessageItemProps extends React.PropsWithChildren {
   type?: "sender" | "reciever";
+  text: string;
 }
 export const MessageItem: React.FunctionComponent<MessageItemProps> = ({
   type = "sender",
+  text,
 }) => {
   switch (type) {
     case "sender":
@@ -17,11 +19,7 @@ export const MessageItem: React.FunctionComponent<MessageItemProps> = ({
           />
           <div className={"p-2 w-[250px] rounded-lg shadow-md mr-2 bg-white"}>
             <h4 className="font-bold text-sm">پوریا باباعلی</h4>
-            <p className="text-xs">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora
-              totam molestias obcaecati illum dicta non culpa, sint consectetur
-              necessitatibus optio.
-            </p>
+            <p className="text-xs">{text}</p>
           </div>
         </li>
       );
@@ -32,11 +30,7 @@ export const MessageItem: React.FunctionComponent<MessageItemProps> = ({
             className={"p-2 w-[250px] rounded-lg shadow-md ml-2 bg-blue-400"}
           >
             <h4 className="font-bold text-sm">پوریا باباعلی</h4>
-            <p className="text-xs">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora
-              totam molestias obcaecati illum dicta non culpa, sint consectetur
-              necessitatibus optio.
-            </p>
+            <p className="text-xs">{text}</p>
           </div>
           <img
             className="rounded-full  w-[50px] h-[50px]  overflow-hidden"
