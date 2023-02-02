@@ -57,3 +57,8 @@ export type ContactListState = {
 export enum UserActionTypes {
   Login_Success = "Login_Success",
 }
+
+export type EditTypes = {
+  edit: boolean;
+  id: number;
+};

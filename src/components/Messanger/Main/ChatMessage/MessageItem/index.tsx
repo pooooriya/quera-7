@@ -14,13 +14,18 @@ export const MessageItem: React.FunctionComponent<MessageItemProps> = ({
   text,
   id,
 }) => {
-  const { state, dispatch } = useContext(AppContext);
+  const { state, dispatch, editMessage, setEditMessage } =
+    useContext(AppContext);
 
   const removeHandler = (id: number) => {
     let newMessages = state.messages.MessageList.filter(
       (message) => message.id !== id
     );
     dispatch({ type: "Change_Messages", payload: newMessages });
+  };
+
+  const changeMessage = (id: number) => {
+    setEditMessage({ edit: true, id: id });
   };
 
   switch (type) {
@@ -37,7 +42,9 @@ export const MessageItem: React.FunctionComponent<MessageItemProps> = ({
               <h4 className="font-bold text-sm">پوریا باباعلی</h4>
               <div className="flex gap-2">
                 <AiFillDelete onClick={() => removeHandler(id)} />
-                <AiFillEdit />
+                <AiFillEdit
+                  onClick={() => !editMessage.edit && changeMessage(id)}
+                />
               </div>
             </div>
             <p className="text-xs">{text}</p>
@@ -54,7 +61,9 @@ export const MessageItem: React.FunctionComponent<MessageItemProps> = ({
               <h4 className="font-bold text-sm">پوریا باباعلی</h4>
               <div className="flex gap-2">
                 <AiFillDelete onClick={() => removeHandler(id)} />
-                <AiFillEdit />
+                <AiFillEdit
+                  onClick={() => !editMessage.edit && changeMessage(id)}
+                />
               </div>
             </div>
             <p className="text-xs">{text}</p>

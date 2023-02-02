@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { Input } from "../../../Base/Forms/Input";
 import { FiSend } from "react-icons/fi";
 import { AXIOS } from "../../../../config/axios.config";
@@ -13,23 +13,36 @@ export const ChatSender: React.FunctionComponent<ChatSenderProps> = (props) => {
   const {
     state: { messages },
     dispatch,
+    editMessage,
+    setEditMessage,
   } = useContext(AppContext);
   const [text, setText] = useState<string>("");
   const handleSendMessage = (e: any) => {
     setText(e.target.value);
   };
+
+  let index = messages.MessageList.findIndex(
+    (message) => message.id === editMessage.id
+  );
+
   const handleOnClick = () => {
     // send request to server to send message to it !
-    const body: MessageItems = {
-      isSentByOwner: false,
-      id: Math.floor(Math.random() * 10000000000),
-      value: text,
-    };
-    dispatch({
-      type: MessageActionTypes.Send_New_Message,
-      payload: body,
-    });
-    setText("");
+    if (editMessage.edit) {
+      messages.MessageList[index].value = text;
+      setEditMessage({ edit: false, id: 0 });
+      setText("");
+    } else {
+      const body: MessageItems = {
+        isSentByOwner: false,
+        id: Math.floor(Math.random() * 10000000000),
+        value: text,
+      };
+      dispatch({
+        type: MessageActionTypes.Send_New_Message,
+        payload: body,
+      });
+      setText("");
+    }
 
     // AXIOS.post(
     //   `${ApiRoutes.GetMessages}${messages.roomId}/MessageList`,
@@ -41,6 +54,13 @@ export const ChatSender: React.FunctionComponent<ChatSenderProps> = (props) => {
     // if server return success so we need to update context
     // =>
   };
+
+  useEffect(() => {
+    if (editMessage.edit) {
+      setText(messages.MessageList[index].value);
+    }
+  }, [editMessage.edit]);
+
   return (
     <div className="p-3 flex">
       <div

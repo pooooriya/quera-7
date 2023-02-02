@@ -3,6 +3,7 @@ import { ContactsReducer } from "./contact/contact.reducer";
 import {
   ContextAction,
   ContextAppState,
+  EditTypes,
 } from "../@types/context/context.types";
 import { MessageReducer } from "./messages/messages.reducer";
 import { UserReducer } from "./user/user.reducer";
@@ -21,12 +22,22 @@ const IntialState: ContextAppState = {
     username: "",
   },
 };
+
+const InitialEdit = {
+  edit: false,
+  id: 0,
+};
+
 const AppContext = createContext<{
   state: ContextAppState;
   dispatch: React.Dispatch<ContextAction<any, any>>;
+  editMessage: EditTypes;
+  setEditMessage: React.Dispatch<React.SetStateAction<EditTypes>>;
 }>({
   state: IntialState,
   dispatch: () => null,
+  editMessage: InitialEdit,
+  setEditMessage: () => null,
 });
 
 const combineReducer = (
@@ -42,8 +53,12 @@ const AppContextProvider: React.FunctionComponent<AppContextProviderProps> = ({
   children,
 }): JSX.Element => {
   const [state, dispatch] = useReducer(combineReducer, IntialState); // flux
+  const [editMessage, setEditMessage] = useState<EditTypes>(InitialEdit);
+
   return (
-    <AppContext.Provider value={{ state, dispatch }}>
+    <AppContext.Provider
+      value={{ state, dispatch, editMessage, setEditMessage }}
+    >
       {children}
     </AppContext.Provider>
   );
