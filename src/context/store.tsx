@@ -8,7 +8,10 @@ import {
 import { MessageReducer } from "./messages/messages.reducer";
 
 const IntialState: ContextAppState = {
-  contacts: [],
+  contacts: {
+    searchList: [],
+    contactsList: [],
+  },
   messages: {
     MessageList: [],
     roomId: "",
@@ -16,15 +19,11 @@ const IntialState: ContextAppState = {
 };
 const AppContext = createContext<{
   state: ContextAppState;
-  search: ContactState[];
   dispatch: React.Dispatch<ContextAction<any, any>>;
-  setSearch: React.Dispatch<React.SetStateAction<ContactState[]>>;
 }>({
   state: IntialState,
-  search: [],
   dispatch: () => null,
-  setSearch: () => null,
-}); //store
+});
 
 const combineReducer = (
   { contacts, messages }: ContextAppState,
@@ -38,9 +37,8 @@ const AppContextProvider: React.FunctionComponent<AppContextProviderProps> = ({
   children,
 }): JSX.Element => {
   const [state, dispatch] = useReducer(combineReducer, IntialState); // flux
-  const [search, setSearch] = useState<ContactState[]>([]);
   return (
-    <AppContext.Provider value={{ state, dispatch, search, setSearch }}>
+    <AppContext.Provider value={{ state, dispatch }}>
       {children}
     </AppContext.Provider>
   );

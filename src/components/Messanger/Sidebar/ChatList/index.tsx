@@ -10,7 +10,7 @@ import { ContactActionTypes } from "../../../../@types/context/context.types";
 interface ChatListProps extends React.PropsWithChildren {}
 export const ChatList: React.FunctionComponent<ChatListProps> = (props) => {
   const dispatch = useContext(AppContext).dispatch;
-  const { state, search } = useContext(AppContext);
+  const { state } = useContext(AppContext);
 
   const fetchContacts = useCallback(async () => {
     const response = await AXIOS.get<any, AxiosResponse<Contacts[]>>(
@@ -30,11 +30,11 @@ export const ChatList: React.FunctionComponent<ChatListProps> = (props) => {
 
   return (
     <>
-      {search.length === 0 ? (
-        state.length === 0 ? (
+      {state.contacts.searchList.length === 0 ? (
+        state.contacts.contactsList.length === 0 ? (
           <div>فعلا پیامی وجود ندارد ...</div>
         ) : (
-          state.map((item) => (
+          state.contacts.contactsList.map((item) => (
             <ChatItem
               avatar={item.avatar}
               lastmessage={item.lastMessage}
@@ -46,7 +46,7 @@ export const ChatList: React.FunctionComponent<ChatListProps> = (props) => {
           ))
         )
       ) : (
-        search.map((item) => (
+        state.contacts.searchList.map((item) => (
           <ChatItem
             avatar={item.avatar}
             lastmessage={item.lastMessage}

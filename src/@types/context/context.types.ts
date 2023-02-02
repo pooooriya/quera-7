@@ -13,6 +13,7 @@ export type AppContextIntialState = {
 
 export enum ContactActionTypes {
   Get_All_Contact = "Get_All_Contact",
+  Search_Contact = "Search_Contact",
 }
 
 export type ContextAction<T, K> = {
@@ -36,6 +37,11 @@ export enum MessageActionTypes {
 }
 
 export type ContextAppState = {
-  contacts: ContactState[];
+  contacts: ContactListState;
   messages: MessageState;
+};
+
+export type ContactListState = {
+  contactsList: ContactState[];
+  searchList: ContactState[];
 };
