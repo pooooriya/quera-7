@@ -8,7 +8,7 @@ export const Layout: React.FunctionComponent<LayoutProps> = ({
   children,
 }): JSX.Element => {
   return (
-    <div className="bg-gray-300 p-2 flex flex-col justify-center items-center">
+    <div className="bg-gray-300 p-2 flex flex-col justify-center items-center max-w-7xl mx-auto">
       <Header />
       <div className="w-full h-[calc(100vh-60px)] pt-2">
         <Outlet />
