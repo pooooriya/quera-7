@@ -40,6 +40,7 @@ export const Login: React.FunctionComponent<
 
       // token store somewhere
       localStorage.setItem("token", resp.data.accessToken);
+      localStorage.setItem("username", resp.data.username);
     });
   };
 
@@ -55,6 +56,7 @@ export const Login: React.FunctionComponent<
           placeholder="نام کاربری"
         />
         <Input
+          type="password"
           {...register("password", { required: true })}
           placeholder="رمز عبور"
         />
