@@ -5,36 +5,41 @@ import { ApiRoutes } from "../../../../constants/api.route";
 import { AxiosResponse } from "axios";
 import { AppContext } from "../../../../context/store";
 import { Contacts } from "../../../../@types/api.types";
-import { ContactActionTypes } from "../../../../@types/context/context.types";
-
+import {
+  ContactActionTypes,
+  ContactListState,
+} from "../../../../@types/context/context.types";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../../../redux/store";
+import { GetAllContactsAsync } from "../../../../redux/feature/contacts/contacts.middleware";
 interface ChatListProps extends React.PropsWithChildren {}
 export const ChatList: React.FunctionComponent<ChatListProps> = (props) => {
-  const dispatch = useContext(AppContext).dispatch;
-  const { state } = useContext(AppContext);
-
-  const fetchContacts = useCallback(async () => {
-    const response = await AXIOS.get<any, AxiosResponse<Contacts[]>>(
-      ApiRoutes.GetContacts
-    );
-    if (response.status === 200) {
-      dispatch({
-        type: ContactActionTypes.Get_All_Contact,
-        payload: response.data,
-      });
-    }
-  }, [dispatch]);
-
+  const dispatch = useDispatch<AppDispatch>();
+  const state = useSelector<RootState>(
+    (state) => state.contacts
+  ) as ContactListState;
+  // const fetchContacts = useCallback(async () => {
+  //   const response = await AXIOS.get<any, AxiosResponse<Contacts[]>>(
+  //     ApiRoutes.GetContacts
+  //   );
+  //   if (response.status === 200) {
+  //     dispatch({
+  //       type: ContactActionTypes.Get_All_Contact,
+  //       payload: response.data,
+  //     });
+  //   }
+  // }, [dispatch]);
   useEffect(() => {
-    fetchContacts();
-  }, [fetchContacts]);
+    dispatch(GetAllContactsAsync());
+  }, []);
 
   return (
     <>
-      {state.contacts.searchList.length === 0 ? (
-        state.contacts.contactsList.length === 0 ? (
+      {state.searchList.length === 0 ? (
+        state.contactsList.length === 0 ? (
           <div>فعلا پیامی وجود ندارد ...</div>
         ) : (
-          state.contacts.contactsList.map((item) => (
+          state.contactsList.map((item) => (
             <ChatItem
               avatar={item.avatar}
               lastmessage={item.lastMessage}
@@ -46,7 +51,7 @@ export const ChatList: React.FunctionComponent<ChatListProps> = (props) => {
           ))
         )
       ) : (
-        state.contacts.searchList.map((item) => (
+        state.searchList.map((item) => (
           <ChatItem
             avatar={item.avatar}
             lastmessage={item.lastMessage}

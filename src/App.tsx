@@ -4,9 +4,11 @@ import { Layout } from "./components/Layout";
 import { HomePage } from "./pages";
 import { AppContextProvider } from "./context/store";
 import { Login } from "./pages/login";
+import { Provider } from "react-redux";
+import { ReduxStore } from "./redux/store";
 export const App = () => {
   return (
-    <AppContextProvider>
+    <Provider store={ReduxStore}>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Layout />}>
@@ -15,6 +17,6 @@ export const App = () => {
           </Route>
         </Routes>
       </BrowserRouter>
-    </AppContextProvider>
+    </Provider>
   );
 };

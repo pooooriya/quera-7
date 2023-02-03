@@ -51,6 +51,7 @@ export type UserAppState = {
 export type ContactListState = {
   contactsList: ContactState[];
   searchList: ContactState[];
+  isLoading: boolean;
 };
 
 export enum UserActionTypes {

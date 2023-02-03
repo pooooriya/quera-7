@@ -11,6 +11,7 @@ const IntialState: ContextAppState = {
   contacts: {
     searchList: [],
     contactsList: [],
+    isLoading: false,
   },
   messages: {
     MessageList: [],
