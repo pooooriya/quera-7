@@ -15,6 +15,11 @@ export const MessageReducer = (
     case MessageActionTypes.Send_New_Message:
       state.MessageList.push(action.payload);
       return state;
+    case MessageActionTypes.Remove_Message:
+      state.MessageList = state.MessageList.filter(
+        (n) => n.id !== action?.payload
+      );
+      return state;
     default:
       return state;
   }

@@ -1,6 +1,7 @@
 import React, {
   DetailedHTMLProps,
   LiHTMLAttributes,
+  useCallback,
   useContext,
   useEffect,
   useImperativeHandle,
@@ -18,10 +19,18 @@ export const ChatMessage: React.FunctionComponent<ChatMessageProps> = (
     state: { messages },
   } = useContext(AppContext);
   const ref = useRef<any>();
+  const prevMessageCount = useRef<any>(messages.MessageList.length);
   const handleScrollIntoBottom = () =>
     ref.current.scrollIntoView({ behavior: "smooth" });
   useEffect(() => {
-    handleScrollIntoBottom();
+    // kafie befahmim kam shode ya ziad shode => ziad shode bud faqt func ejra she
+    const existingMessageCount = messages.MessageList.length;
+    if (existingMessageCount > prevMessageCount?.current) {
+      // ziad shode tedad payam ha va kam nashode
+      handleScrollIntoBottom();
+    }
+    // update ref !
+    prevMessageCount.current = existingMessageCount;
   }, [messages.MessageList.length]);
 
   useEffect(() => {
@@ -40,6 +49,7 @@ export const ChatMessage: React.FunctionComponent<ChatMessageProps> = (
           key={item.id}
           type={item.isSentByOwner ? "sender" : "reciever"}
           text={item.value}
+          id={item.id}
         />
       ))}
       {/* Dummy Li */}

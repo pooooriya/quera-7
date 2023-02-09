@@ -1,13 +1,24 @@
-import React from "react";
-import cs from "classnames";
+import React, { useContext } from "react";
+import { AiFillDelete } from "react-icons/ai";
+import { AppContext } from "../../../../../context/store";
+import { MessageActionTypes } from "../../../../../@types/context/context.types";
 interface MessageItemProps extends React.PropsWithChildren {
   type?: "sender" | "reciever";
   text: string;
+  id: number;
 }
 export const MessageItem: React.FunctionComponent<MessageItemProps> = ({
   type = "sender",
   text,
+  id,
 }) => {
+  const { dispatch } = useContext(AppContext);
+  const handleDeleteMessage = (id: number) => {
+    dispatch({
+      type: MessageActionTypes.Remove_Message,
+      payload: id,
+    });
+  };
   switch (type) {
     case "sender":
       return (
@@ -18,7 +29,13 @@ export const MessageItem: React.FunctionComponent<MessageItemProps> = ({
             alt=""
           />
           <div className={"p-2 w-[250px] rounded-lg shadow-md mr-2 bg-white"}>
-            <h4 className="font-bold text-sm">پوریا باباعلی</h4>
+            <div className="p-1 flex justify-between items-center">
+              <h4 className="font-bold text-sm">پوریا باباعلی</h4>
+              <AiFillDelete
+                className="cursor-pointer"
+                onClick={() => handleDeleteMessage(id)}
+              />
+            </div>
             <p className="text-xs">{text}</p>
           </div>
         </li>
@@ -29,7 +46,13 @@ export const MessageItem: React.FunctionComponent<MessageItemProps> = ({
           <div
             className={"p-2 w-[250px] rounded-lg shadow-md ml-2 bg-blue-400"}
           >
-            <h4 className="font-bold text-sm">پوریا باباعلی</h4>
+            <div className="p-1 flex justify-between items-center">
+              <h4 className="font-bold text-sm">پوریا باباعلی</h4>
+              <AiFillDelete
+                className="cursor-pointer"
+                onClick={() => handleDeleteMessage(id)}
+              />
+            </div>
             <p className="text-xs">{text}</p>
           </div>
           <img
