@@ -20,6 +20,10 @@ export const MessageReducer = (
         (n) => n.id !== action?.payload
       );
       return state;
+    case MessageActionTypes.Exit_Room:
+      state.MessageList = [];
+      state.roomId = "";
+      return state;
     default:
       return state;
   }

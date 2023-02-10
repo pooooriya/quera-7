@@ -18,7 +18,12 @@ export const MessangerLayout: React.FunctionComponent<MessangerLayoutProps> = ({
   return (
     <div className="flex flex-row bg-white h-full rounded-lg w-full mx-auto">
       {/* Main Bar */}
-      <div className="sm:flex-1 flex-col  flex-[1_1_auto]">
+      <div
+        className={classNames(
+          messages.roomId ? "flex" : "hidden",
+          "sm:flex sm:flex-1 flex-col  flex-[1_1_auto]"
+        )}
+      >
         <div className="flex flex-col h-full">
           {messages.roomId ? (
             <>

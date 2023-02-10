@@ -18,7 +18,7 @@ export enum ContactActionTypes {
 
 export type ContextAction<T, K> = {
   type: T;
-  payload: K;
+  payload?: K;
 };
 
 export type MessageState = {
@@ -36,6 +36,7 @@ export enum MessageActionTypes {
   Get_Current_Messages = "Get_Current_Messages",
   Send_New_Message = "Send_New_Message",
   Remove_Message = "Remove_Message",
+  Exit_Room = "Exit_Room",
 }
 
 export type ContextAppState = {
